@@ -1,0 +1,10 @@
+{
+  "listen": "http://0.0.0.0:10000",
+  "padding": true,
+  "users": [
+    {
+      "username": "gpuser",
+      "password": "GpFree@2026"
+    }
+  ]
+}
