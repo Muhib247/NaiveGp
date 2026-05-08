@@ -1,17 +1,5 @@
 FROM alpine:latest
-
-RUN apk add --no-cache wget ca-certificates xz
-
-RUN NAIVE_VER=$(wget -qO- https://api.github.com/repos/klzgrad/naiveproxy/releases/latest \
-        | grep '"tag_name"' | cut -d'"' -f4) \
-    && wget -O naive.tar.xz \
-        "https://github.com/klzgrad/naiveproxy/releases/download/${NAIVE_VER}/naiveproxy-${NAIVE_VER}-linux-x64.tar.xz" \
-    && tar -xf naive.tar.xz \
-    && rm naive.tar.xz \
-    && mv "naiveproxy-${NAIVE_VER}-linux-x64/naive" /usr/local/bin/naive \
-    && chmod +x /usr/local/bin/naive \
-    && rm -rf "naiveproxy-${NAIVE_VER}-linux-x64"
-
+RUN apk add --no-cache wget ca-certificates
+RUN wget -O naive.tar.xz https://github.com/klzgrad/naiveproxy/releases/download/v120.0.6099.43-1/naiveproxy-v120.0.6099.43-1-linux-x64.tar.xz && tar -xf naive.tar.xz && rm naive.tar.xz && chmod +x naive
 COPY config.json /config.json
-
-CMD ["naive", "/config.json"]
+CMD ["./naive", "/config.json"]
